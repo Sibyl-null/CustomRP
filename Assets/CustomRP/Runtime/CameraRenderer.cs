@@ -59,17 +59,25 @@ namespace CustomRP.Runtime
 
         private void DrawVisibleGeometry()
         {
+            // 渲染不透明物体
             SortingSettings sortingSettings = new SortingSettings(_camera)
             {
-                criteria = SortingCriteria.CommonOpaque   // 不透明对象的典型排序
+                criteria = SortingCriteria.CommonOpaque   // 不透明对象的典型排序，大体上从前往后
             };
             DrawingSettings drawingSettings = new DrawingSettings(UnlitShaderTagId, sortingSettings);
-            FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.all);
+            FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
             
             _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
             
             // 将相机传递给 DrawSkybox，仅用于确定是否应该绘制天空盒，这是通过相机的清除标志控制的
             _context.DrawSkybox(_camera);
+
+            // 渲染透明物体，防止被天空盒覆盖. 因为透明物体不写入深度缓存
+            sortingSettings.criteria = SortingCriteria.CommonTransparent;   // 透明对象的典型排序，大体上从后往前
+            drawingSettings.sortingSettings = sortingSettings;
+            filteringSettings.renderQueueRange = RenderQueueRange.transparent;
+            
+            _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
         }
         
         private void Submit()
