@@ -6,6 +6,7 @@ namespace CustomRP.Runtime
     public class CameraRenderer
     {
         private const string BufferName = "Render Camera";
+        private static ShaderTagId UnlitShaderTagId = new ShaderTagId("SRPDefaultUnlit");
 
         private ScriptableRenderContext _context;
         private Camera _camera;
@@ -58,6 +59,15 @@ namespace CustomRP.Runtime
 
         private void DrawVisibleGeometry()
         {
+            SortingSettings sortingSettings = new SortingSettings(_camera)
+            {
+                criteria = SortingCriteria.CommonOpaque   // 不透明对象的典型排序
+            };
+            DrawingSettings drawingSettings = new DrawingSettings(UnlitShaderTagId, sortingSettings);
+            FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.all);
+            
+            _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
+            
             // 将相机传递给 DrawSkybox，仅用于确定是否应该绘制天空盒，这是通过相机的清除标志控制的
             _context.DrawSkybox(_camera);
         }
