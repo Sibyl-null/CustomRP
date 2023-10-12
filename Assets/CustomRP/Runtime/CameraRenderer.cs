@@ -3,19 +3,10 @@ using UnityEngine.Rendering;
 
 namespace CustomRP.Runtime
 {
-    public class CameraRenderer
+    public partial class CameraRenderer
     {
         private const string BufferName = "Render Camera";
-        private static Material _errorMaterial;
         private static readonly ShaderTagId UnlitShaderTagId = new ShaderTagId("SRPDefaultUnlit");
-        private static readonly ShaderTagId[] LegacyShaderTagIds = {
-            new ShaderTagId("Always"),
-            new ShaderTagId("ForwardBase"),
-            new ShaderTagId("PrepassBase"),
-            new ShaderTagId("Vertex"),
-            new ShaderTagId("VertexLMRGBM"),
-            new ShaderTagId("VertexLM")
-        };
 
         private ScriptableRenderContext _context;
         private Camera _camera;
@@ -37,7 +28,7 @@ namespace CustomRP.Runtime
 
             Setup();
             DrawVisibleGeometry();
-            DrawUnsupportedShaders();
+            DrawUnsupportedShaders();   // Only Editor
             Submit();
         }
 
@@ -89,23 +80,7 @@ namespace CustomRP.Runtime
             
             _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
         }
-        
-        private void DrawUnsupportedShaders()
-        {
-            if (_errorMaterial == null)
-                _errorMaterial = new Material(Shader.Find("Hidden/InternalErrorShader"));
 
-            DrawingSettings drawingSettings = new DrawingSettings(LegacyShaderTagIds[0], new SortingSettings(_camera))
-            {
-                overrideMaterial = _errorMaterial
-            };
-            for (int i = 1; i < LegacyShaderTagIds.Length; ++i)
-                drawingSettings.SetShaderPassName(i, LegacyShaderTagIds[i]);
-            FilteringSettings filteringSettings = FilteringSettings.defaultValue;
-            
-            _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
-        }
-        
         private void Submit()
         {
             _buffer.EndSample(BufferName);
