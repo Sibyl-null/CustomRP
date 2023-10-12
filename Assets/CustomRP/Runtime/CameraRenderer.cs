@@ -9,6 +9,7 @@ namespace CustomRP.Runtime
 
         private ScriptableRenderContext _context;
         private Camera _camera;
+        private CullingResults _cullingResults;
         
         // 某些任务(例如绘制天空盒)可以通过专用方法发出，但其他命令必须通过单独的命令缓冲区间接发出
         private readonly CommandBuffer _buffer = new CommandBuffer()
@@ -16,15 +17,31 @@ namespace CustomRP.Runtime
             name = BufferName
         };
 
-        // 绘制相机可以看到的所有几何图形
         public void Render(ScriptableRenderContext context, Camera camera)
         {
             _context = context;
             _camera = camera;
 
+            if (Cull() == false)
+                return;
+
             Setup();
             DrawVisibleGeometry();
             Submit();
+        }
+
+        private bool Cull()
+        {
+            // 尝试获取 ScriptableCullingParameters 相机剔除参数
+            if (_camera.TryGetCullingParameters(out ScriptableCullingParameters p))
+            {
+                // 实际剔除调用
+                _cullingResults = _context.Cull(ref p);
+                return true;
+            }
+
+            // 相机为 null 或不可用，设置为非渲染状态，远裁剪平面距离小于近裁剪平面距离等等情况下，会返回 false
+            return false;
         }
 
         private void Setup()
