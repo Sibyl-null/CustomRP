@@ -13,16 +13,14 @@ namespace CustomRP.Runtime
         private CullingResults _cullingResults;
         
         // 某些任务(例如绘制天空盒)可以通过专用方法发出，但其他命令必须通过单独的命令缓冲区间接发出
-        private readonly CommandBuffer _buffer = new CommandBuffer()
-        {
-            name = BufferName
-        };
+        private readonly CommandBuffer _buffer = new CommandBuffer();
 
         public void Render(ScriptableRenderContext context, Camera camera)
         {
             _context = context;
             _camera = camera;
 
+            PrepareBuffer();
             PrepareForSceneWindow();    // 可能会向场景添加几何图形，需要在剔除之前完成
             
             if (Cull() == false)
