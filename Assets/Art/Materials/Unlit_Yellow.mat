@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom RP_Unlit
+  m_Name: Unlit_Yellow
   m_Shader: {fileID: 4800000, guid: ce93e2590e12b41a5a3c04a1c5b199c9, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -23,5 +23,5 @@ Material:
     m_Ints: []
     m_Floats: []
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.09801608, b: 0, a: 1}
+    - _BaseColor: {r: 1, g: 0.91839564, b: 0.2980392, a: 1}
   m_BuildTextureStacks: []
