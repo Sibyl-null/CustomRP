@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Rendering;
 
 namespace CustomRP.Runtime
@@ -12,6 +13,7 @@ namespace CustomRP.Runtime
         partial void DrawGizmos();
         
 #if UNITY_EDITOR
+        private string SampleName { get; set; } 
         private static Material _errorMaterial;
 
         private static readonly ShaderTagId[] LegacyShaderTagIds = {
@@ -25,7 +27,9 @@ namespace CustomRP.Runtime
 
         partial void PrepareBuffer()
         {
-            _buffer.name = _camera.name;
+            Profiler.BeginSample("Editor Only");
+            _buffer.name = SampleName = _camera.name;
+            Profiler.EndSample();
         }
 
         // 将 UI 几何图形发送到场景视图中进行渲染
@@ -61,6 +65,8 @@ namespace CustomRP.Runtime
                 _context.DrawGizmos(_camera, GizmoSubset.PostImageEffects);
             }
         }
+#else
+        private const string SampleName = BufferName;
 #endif
     }
 }

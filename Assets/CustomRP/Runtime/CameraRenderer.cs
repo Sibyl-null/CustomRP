@@ -55,7 +55,7 @@ namespace CustomRP.Runtime
             
             // 清除深度缓冲和颜色缓冲. 在设置相机属性之后调用, 效率更高
             _buffer.ClearRenderTarget(true, true, Color.clear);
-            _buffer.BeginSample(BufferName);
+            _buffer.BeginSample(SampleName);
             ExecuteBuffer();
         }
 
@@ -84,7 +84,7 @@ namespace CustomRP.Runtime
 
         private void Submit()
         {
-            _buffer.EndSample(BufferName);
+            _buffer.EndSample(SampleName);
             ExecuteBuffer();
             
             // 向上下文发出的命令被缓冲了. 必须通过调用 Submit 来提交排队的工作以供执行
