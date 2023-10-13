@@ -1,9 +1,13 @@
 #ifndef CUSTOM_UNITY_INPUT_INCLUDE
 #define CUSTOM_UNITY_INPUT_INCLUDE
 
-float4x4 unity_ObjectToWorld;
-float4x4 unity_WorldToObject;
-real4 unity_WorldTransformParams;
+// unity 内置属性若要支持 srp batch 需要包裹在 UnityPerDraw 的 cbuffer 中
+CBUFFER_START(UnityPerDraw)
+    float4x4 unity_ObjectToWorld;
+    float4x4 unity_WorldToObject;
+    float4 unity_LODFade;
+    real4 unity_WorldTransformParams;
+CBUFFER_END
 
 float4x4 unity_MatrixVP;
 float4x4 unity_MatrixV;
