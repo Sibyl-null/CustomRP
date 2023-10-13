@@ -23,6 +23,8 @@ namespace CustomRP.Runtime
             _context = context;
             _camera = camera;
 
+            PrepareForSceneWindow();    // 可能会向场景添加几何图形，需要在剔除之前完成
+            
             if (Cull() == false)
                 return;
 
