@@ -29,6 +29,7 @@ namespace CustomRP.Runtime
             Setup();
             DrawVisibleGeometry();
             DrawUnsupportedShaders();   // Only Editor
+            DrawGizmos();               // Only Editor
             Submit();
         }
 

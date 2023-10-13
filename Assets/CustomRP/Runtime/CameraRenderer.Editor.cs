@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -6,6 +7,7 @@ namespace CustomRP.Runtime
     public partial class CameraRenderer
     {
         partial void DrawUnsupportedShaders();
+        partial void DrawGizmos();
         
 #if UNITY_EDITOR
         private static Material _errorMaterial;
@@ -34,7 +36,15 @@ namespace CustomRP.Runtime
             
             _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
         }
+
+        partial void DrawGizmos()
+        {
+            if (Handles.ShouldRenderGizmos())
+            {
+                _context.DrawGizmos(_camera, GizmoSubset.PreImageEffects);
+                _context.DrawGizmos(_camera, GizmoSubset.PostImageEffects);
+            }
+        }
 #endif
-        
     }
 }
