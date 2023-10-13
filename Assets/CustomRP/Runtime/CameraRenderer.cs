@@ -52,9 +52,14 @@ namespace CustomRP.Runtime
             // 设置相机特定的全局着色器变量. 例如视图投影矩阵 unity_MatrixVP
             // 在 FrameDebugger 中的 ShaderProperties 中可见
             _context.SetupCameraProperties(_camera);
+            CameraClearFlags flags = _camera.clearFlags;
             
             // 清除深度缓冲和颜色缓冲. 在设置相机属性之后调用, 效率更高
-            _buffer.ClearRenderTarget(true, true, Color.clear);
+            _buffer.ClearRenderTarget(
+                flags <= CameraClearFlags.Depth,
+                flags == CameraClearFlags.Color,
+                flags == CameraClearFlags.Color ? _camera.backgroundColor.linear : Color.clear);
+            
             _buffer.BeginSample(SampleName);
             ExecuteBuffer();
         }
