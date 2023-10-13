@@ -13,22 +13,23 @@ namespace CustomRP.Runtime
         private CullingResults _cullingResults;
         
         // 某些任务(例如绘制天空盒)可以通过专用方法发出，但其他命令必须通过单独的命令缓冲区间接发出
-        private readonly CommandBuffer _buffer = new CommandBuffer()
-        {
-            name = BufferName
-        };
+        private readonly CommandBuffer _buffer = new CommandBuffer();
 
         public void Render(ScriptableRenderContext context, Camera camera)
         {
             _context = context;
             _camera = camera;
 
+            PrepareBuffer();
+            PrepareForSceneWindow();    // 可能会向场景添加几何图形，需要在剔除之前完成
+            
             if (Cull() == false)
                 return;
 
             Setup();
             DrawVisibleGeometry();
             DrawUnsupportedShaders();   // Only Editor
+            DrawGizmos();               // Only Editor
             Submit();
         }
 
@@ -51,10 +52,15 @@ namespace CustomRP.Runtime
             // 设置相机特定的全局着色器变量. 例如视图投影矩阵 unity_MatrixVP
             // 在 FrameDebugger 中的 ShaderProperties 中可见
             _context.SetupCameraProperties(_camera);
+            CameraClearFlags flags = _camera.clearFlags;
             
             // 清除深度缓冲和颜色缓冲. 在设置相机属性之后调用, 效率更高
-            _buffer.ClearRenderTarget(true, true, Color.clear);
-            _buffer.BeginSample(BufferName);
+            _buffer.ClearRenderTarget(
+                flags <= CameraClearFlags.Depth,
+                flags == CameraClearFlags.Color,
+                flags == CameraClearFlags.Color ? _camera.backgroundColor.linear : Color.clear);
+            
+            _buffer.BeginSample(SampleName);
             ExecuteBuffer();
         }
 
@@ -83,7 +89,7 @@ namespace CustomRP.Runtime
 
         private void Submit()
         {
-            _buffer.EndSample(BufferName);
+            _buffer.EndSample(SampleName);
             ExecuteBuffer();
             
             // 向上下文发出的命令被缓冲了. 必须通过调用 Submit 来提交排队的工作以供执行
