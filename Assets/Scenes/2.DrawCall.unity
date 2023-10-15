@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 28714449}
   - component: {fileID: 28714448}
   - component: {fileID: 28714447}
+  - component: {fileID: 28714451}
   m_Layer: 0
   m_Name: RedSphere
   m_TagString: Untagged
@@ -220,6 +221,19 @@ Transform:
   m_Father: {fileID: 540432212}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &28714451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28714446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &47633355
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,6 +246,7 @@ GameObject:
   - component: {fileID: 47633358}
   - component: {fileID: 47633357}
   - component: {fileID: 47633356}
+  - component: {fileID: 47633360}
   m_Layer: 0
   m_Name: YellowSphere
   m_TagString: Untagged
@@ -317,6 +332,19 @@ Transform:
   m_Father: {fileID: 2066674201}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47633360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47633355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 0.032075405, b: 0.6776809, a: 1}
 --- !u!1 &54093037
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,6 +842,7 @@ GameObject:
   - component: {fileID: 97792430}
   - component: {fileID: 97792429}
   - component: {fileID: 97792428}
+  - component: {fileID: 97792432}
   m_Layer: 0
   m_Name: GreenSphere
   m_TagString: Untagged
@@ -899,6 +928,19 @@ Transform:
   m_Father: {fileID: 312998059}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &97792432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97792427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 0, b: 0.008406162, a: 1}
 --- !u!1 &115559979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2125,6 +2167,7 @@ GameObject:
   - component: {fileID: 426816907}
   - component: {fileID: 426816906}
   - component: {fileID: 426816905}
+  - component: {fileID: 426816909}
   m_Layer: 0
   m_Name: YellowSphere
   m_TagString: Untagged
@@ -2210,6 +2253,19 @@ Transform:
   m_Father: {fileID: 2066674201}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &426816909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426816904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 0.032075405, b: 0.6776809, a: 1}
 --- !u!1 &469953615
 GameObject:
   m_ObjectHideFlags: 0
@@ -2469,6 +2525,7 @@ GameObject:
   - component: {fileID: 532144314}
   - component: {fileID: 532144313}
   - component: {fileID: 532144312}
+  - component: {fileID: 532144316}
   m_Layer: 0
   m_Name: RedSphere
   m_TagString: Untagged
@@ -2554,6 +2611,19 @@ Transform:
   m_Father: {fileID: 540432212}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &532144316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532144311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &537671646
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,6 +2780,7 @@ GameObject:
   - component: {fileID: 590131612}
   - component: {fileID: 590131611}
   - component: {fileID: 590131610}
+  - component: {fileID: 590131614}
   m_Layer: 0
   m_Name: YellowSphere
   m_TagString: Untagged
@@ -2795,6 +2866,19 @@ Transform:
   m_Father: {fileID: 2066674201}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &590131614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 590131609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 0.032075405, b: 0.6776809, a: 1}
 --- !u!1 &590551731
 GameObject:
   m_ObjectHideFlags: 0
@@ -3195,6 +3279,7 @@ GameObject:
   - component: {fileID: 684359279}
   - component: {fileID: 684359278}
   - component: {fileID: 684359277}
+  - component: {fileID: 684359281}
   m_Layer: 0
   m_Name: BlueSphere
   m_TagString: Untagged
@@ -3280,6 +3365,19 @@ Transform:
   m_Father: {fileID: 469953616}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &684359281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684359276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 0.60993564, g: 0.3339622, b: 1, a: 1}
 --- !u!1 &716618424
 GameObject:
   m_ObjectHideFlags: 0
@@ -4359,6 +4457,7 @@ GameObject:
   - component: {fileID: 963191503}
   - component: {fileID: 963191502}
   - component: {fileID: 963191501}
+  - component: {fileID: 963191505}
   m_Layer: 0
   m_Name: BlueSphere
   m_TagString: Untagged
@@ -4444,6 +4543,19 @@ Transform:
   m_Father: {fileID: 469953616}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963191505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963191499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 0.60993564, g: 0.3339622, b: 1, a: 1}
 --- !u!1 &1035367652
 GameObject:
   m_ObjectHideFlags: 0
@@ -5293,8 +5405,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1477026222}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0.4039246, y: -0.004942597, z: 0.0021823526, w: -0.9147763}
+  m_LocalPosition: {x: 1.106447, y: 11.931753, z: -9.294949}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5410,6 +5522,7 @@ GameObject:
   - component: {fileID: 1523533568}
   - component: {fileID: 1523533567}
   - component: {fileID: 1523533566}
+  - component: {fileID: 1523533570}
   m_Layer: 0
   m_Name: GreenSphere
   m_TagString: Untagged
@@ -5495,6 +5608,19 @@ Transform:
   m_Father: {fileID: 312998059}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1523533570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1523533565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 0, b: 0.008406162, a: 1}
 --- !u!1 &1532943130
 GameObject:
   m_ObjectHideFlags: 0
@@ -5895,6 +6021,7 @@ GameObject:
   - component: {fileID: 1651931468}
   - component: {fileID: 1651931467}
   - component: {fileID: 1651931466}
+  - component: {fileID: 1651931470}
   m_Layer: 0
   m_Name: RedSphere
   m_TagString: Untagged
@@ -5980,6 +6107,19 @@ Transform:
   m_Father: {fileID: 540432212}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1651931470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651931464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1673602956
 GameObject:
   m_ObjectHideFlags: 0
@@ -6217,6 +6357,7 @@ GameObject:
   - component: {fileID: 1815957651}
   - component: {fileID: 1815957650}
   - component: {fileID: 1815957649}
+  - component: {fileID: 1815957653}
   m_Layer: 0
   m_Name: GreenSphere
   m_TagString: Untagged
@@ -6302,6 +6443,19 @@ Transform:
   m_Father: {fileID: 312998059}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1815957653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815957648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 0, b: 0.008406162, a: 1}
 --- !u!1 &1859663491
 GameObject:
   m_ObjectHideFlags: 0
@@ -6508,6 +6662,7 @@ GameObject:
   - component: {fileID: 1875089051}
   - component: {fileID: 1875089050}
   - component: {fileID: 1875089049}
+  - component: {fileID: 1875089053}
   m_Layer: 0
   m_Name: GreenSphere
   m_TagString: Untagged
@@ -6593,6 +6748,19 @@ Transform:
   m_Father: {fileID: 312998059}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1875089053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1875089048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 1, g: 0, b: 0.008406162, a: 1}
 --- !u!1 &1875583485
 GameObject:
   m_ObjectHideFlags: 0
@@ -7284,6 +7452,7 @@ GameObject:
   - component: {fileID: 1973491239}
   - component: {fileID: 1973491238}
   - component: {fileID: 1973491237}
+  - component: {fileID: 1973491241}
   m_Layer: 0
   m_Name: BlueSphere
   m_TagString: Untagged
@@ -7369,6 +7538,19 @@ Transform:
   m_Father: {fileID: 469953616}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1973491241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973491236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd6736340f6dce44b90a12bf93bc9c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _baseColor: {r: 0.60993564, g: 0.3339622, b: 1, a: 1}
 --- !u!1 &1973535410
 GameObject:
   m_ObjectHideFlags: 0
