@@ -10,6 +10,7 @@ Shader "Custom RP/Unlit"
 		Pass
 		{
 			HLSLPROGRAM
+			#pragma multi_compile_instancing	// 会生成两种变体: 支持 GPU Instance 和不支持 GPU Instance
 			#pragma vertex UnlitPassVertex
 			#pragma fragment UnlitPassFragment
 			#include "UnlitPass.hlsl"
