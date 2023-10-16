@@ -24,6 +24,7 @@ Material:
     m_Floats:
     - _DstBlend: 6
     - _SrcBlend: 5
+    - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.2980392, g: 0.40206963, b: 1, a: 1}
   m_BuildTextureStacks: []
