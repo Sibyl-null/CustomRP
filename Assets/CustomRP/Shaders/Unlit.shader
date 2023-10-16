@@ -2,6 +2,7 @@ Shader "Custom RP/Unlit"
 {
 	Properties
 	{
+		_BaseMap ("Texture", 2D) = "white" {}
 		_BaseColor ("Color", Color) = (1.0, 1.0, 1.0, 1.0)
 		
 		// 颜色混合配置. Src 表示当前绘制的内容, Dst 表示之前绘制的内容和最终结果(颜色缓存)
