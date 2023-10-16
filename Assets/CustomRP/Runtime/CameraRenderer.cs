@@ -71,7 +71,11 @@ namespace CustomRP.Runtime
             {
                 criteria = SortingCriteria.CommonOpaque   // 不透明对象的典型排序，大体上从前往后
             };
-            DrawingSettings drawingSettings = new DrawingSettings(UnlitShaderTagId, sortingSettings);
+            DrawingSettings drawingSettings = new DrawingSettings(UnlitShaderTagId, sortingSettings)
+            {
+                enableDynamicBatching = true,
+                enableInstancing = false
+            };
             FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
             
             _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);

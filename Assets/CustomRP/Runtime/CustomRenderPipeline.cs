@@ -9,8 +9,8 @@ namespace CustomRP.Runtime
 
         public CustomRenderPipeline()
         {
-            // 启用 SRP Batch
-            GraphicsSettings.useScriptableRenderPipelineBatching = true;
+            // 是否启用 SRP Batch
+            GraphicsSettings.useScriptableRenderPipelineBatching = false;
         }
         
         // 每帧调用
