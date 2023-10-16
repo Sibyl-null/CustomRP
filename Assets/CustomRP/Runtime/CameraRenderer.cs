@@ -15,7 +15,7 @@ namespace CustomRP.Runtime
         // 某些任务(例如绘制天空盒)可以通过专用方法发出，但其他命令必须通过单独的命令缓冲区间接发出
         private readonly CommandBuffer _buffer = new CommandBuffer();
 
-        public void Render(ScriptableRenderContext context, Camera camera)
+        public void Render(ScriptableRenderContext context, Camera camera, bool useDynamicBatching, bool useGPUInstance)
         {
             _context = context;
             _camera = camera;
@@ -27,7 +27,7 @@ namespace CustomRP.Runtime
                 return;
 
             Setup();
-            DrawVisibleGeometry();
+            DrawVisibleGeometry(useDynamicBatching, useGPUInstance);
             DrawUnsupportedShaders();   // Only Editor
             DrawGizmos();               // Only Editor
             Submit();
@@ -64,7 +64,7 @@ namespace CustomRP.Runtime
             ExecuteBuffer();
         }
 
-        private void DrawVisibleGeometry()
+        private void DrawVisibleGeometry(bool useDynamicBatching, bool useGPUInstance)
         {
             // 渲染不透明物体
             SortingSettings sortingSettings = new SortingSettings(_camera)
@@ -73,8 +73,8 @@ namespace CustomRP.Runtime
             };
             DrawingSettings drawingSettings = new DrawingSettings(UnlitShaderTagId, sortingSettings)
             {
-                enableDynamicBatching = true,
-                enableInstancing = false
+                enableDynamicBatching = useDynamicBatching,
+                enableInstancing = useGPUInstance
             };
             FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
             
