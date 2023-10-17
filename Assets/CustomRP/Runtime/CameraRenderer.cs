@@ -12,6 +12,7 @@ namespace CustomRP.Runtime
         private ScriptableRenderContext _context;
         private Camera _camera;
         private CullingResults _cullingResults;
+        private Lighting _lighting = new Lighting();
         
         // 某些任务(例如绘制天空盒)可以通过专用方法发出，但其他命令必须通过单独的命令缓冲区间接发出
         private readonly CommandBuffer _buffer = new CommandBuffer();
@@ -28,6 +29,7 @@ namespace CustomRP.Runtime
                 return;
 
             Setup();
+            _lighting.Setup(context);
             DrawVisibleGeometry(useDynamicBatching, useGPUInstance);
             DrawUnsupportedShaders();   // Only Editor
             DrawGizmos();               // Only Editor
