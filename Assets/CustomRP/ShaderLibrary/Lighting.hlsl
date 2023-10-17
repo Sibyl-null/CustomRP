@@ -12,7 +12,12 @@ float3 IncomingLight(Surface surface, Light light)
 // 返回最终照明颜色
 float3 GetLighting(Surface surface)
 {
-    return IncomingLight(surface, GetDirectionalLight());
+    float3 color = 0.0;
+    for (int i = 0; i < GetDirectionalLightCount(); ++i)
+    {
+        color += IncomingLight(surface, GetDirectionalLight(i));
+    }
+    return color;
 }
 
 #endif

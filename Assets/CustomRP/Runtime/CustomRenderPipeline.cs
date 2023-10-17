@@ -16,6 +16,7 @@ namespace CustomRP.Runtime
             _useGPUInstance = useGPUInstance;
             // 是否启用 SRP Batch
             GraphicsSettings.useScriptableRenderPipelineBatching = useSRPBatcher;
+            GraphicsSettings.lightsUseLinearIntensity = true;
         }
         
         // 每帧调用

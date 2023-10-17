@@ -29,7 +29,7 @@ namespace CustomRP.Runtime
                 return;
 
             Setup();
-            _lighting.Setup(context);
+            _lighting.Setup(context, _cullingResults);
             DrawVisibleGeometry(useDynamicBatching, useGPUInstance);
             DrawUnsupportedShaders();   // Only Editor
             DrawGizmos();               // Only Editor
