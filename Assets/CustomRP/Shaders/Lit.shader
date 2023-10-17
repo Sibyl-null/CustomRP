@@ -17,6 +17,9 @@ Shader "Custom RP/Lit"
 	{
 		Pass
 		{
+			// 自定义光照模式
+			Tags { "LightMode" = "CustomLit" }
+			
 			Blend [_SrcBlend] [_DstBlend]
 			ZWrite [_ZWrite]
 			
