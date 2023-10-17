@@ -9,10 +9,14 @@ namespace CustomRP.Runtime
     [CreateAssetMenu(menuName = "Rendering/Custom Render Pipeline", fileName = "CustomRenderPipelineAsset")]
     public class CustomRenderPipelineAsset : RenderPipelineAsset
     {
+        [SerializeField] private bool _useDynamicBatching = true;
+        [SerializeField] private bool _useGPUInstance = true;
+        [SerializeField] private bool _useSRPBatcher = true;
+
         protected override RenderPipeline CreatePipeline()
         {
             Debug.Log("CustomRenderPipelineAsset.CreatePipeline");
-            return new CustomRenderPipeline();
+            return new CustomRenderPipeline(_useDynamicBatching, _useGPUInstance, _useSRPBatcher);
         }
     }
 }

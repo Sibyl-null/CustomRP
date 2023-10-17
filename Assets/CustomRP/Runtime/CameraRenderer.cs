@@ -7,15 +7,17 @@ namespace CustomRP.Runtime
     {
         private const string BufferName = "Render Camera";
         private static readonly ShaderTagId UnlitShaderTagId = new ShaderTagId("SRPDefaultUnlit");
+        private static readonly ShaderTagId LitShaderTagId = new ShaderTagId("CustomLit");
 
         private ScriptableRenderContext _context;
         private Camera _camera;
         private CullingResults _cullingResults;
+        private Lighting _lighting = new Lighting();
         
         // 某些任务(例如绘制天空盒)可以通过专用方法发出，但其他命令必须通过单独的命令缓冲区间接发出
         private readonly CommandBuffer _buffer = new CommandBuffer();
 
-        public void Render(ScriptableRenderContext context, Camera camera)
+        public void Render(ScriptableRenderContext context, Camera camera, bool useDynamicBatching, bool useGPUInstance)
         {
             _context = context;
             _camera = camera;
@@ -27,7 +29,8 @@ namespace CustomRP.Runtime
                 return;
 
             Setup();
-            DrawVisibleGeometry();
+            _lighting.Setup(context, _cullingResults);
+            DrawVisibleGeometry(useDynamicBatching, useGPUInstance);
             DrawUnsupportedShaders();   // Only Editor
             DrawGizmos();               // Only Editor
             Submit();
@@ -64,22 +67,27 @@ namespace CustomRP.Runtime
             ExecuteBuffer();
         }
 
-        private void DrawVisibleGeometry()
+        private void DrawVisibleGeometry(bool useDynamicBatching, bool useGPUInstance)
         {
-            // 渲染不透明物体
+            // 1. 渲染不透明物体
             SortingSettings sortingSettings = new SortingSettings(_camera)
             {
                 criteria = SortingCriteria.CommonOpaque   // 不透明对象的典型排序，大体上从前往后
             };
-            DrawingSettings drawingSettings = new DrawingSettings(UnlitShaderTagId, sortingSettings);
+            DrawingSettings drawingSettings = new DrawingSettings(UnlitShaderTagId, sortingSettings)
+            {
+                enableDynamicBatching = useDynamicBatching,
+                enableInstancing = useGPUInstance
+            };
+            drawingSettings.SetShaderPassName(1, LitShaderTagId);
             FilteringSettings filteringSettings = new FilteringSettings(RenderQueueRange.opaque);
             
             _context.DrawRenderers(_cullingResults, ref drawingSettings, ref filteringSettings);
             
-            // 将相机传递给 DrawSkybox，仅用于确定是否应该绘制天空盒，这是通过相机的清除标志控制的
+            // 2. 将相机传递给 DrawSkybox，仅用于确定是否应该绘制天空盒，这是通过相机的清除标志控制的
             _context.DrawSkybox(_camera);
 
-            // 渲染透明物体，防止被天空盒覆盖. 因为透明物体不写入深度缓存
+            // 3. 渲染透明物体，防止被天空盒覆盖. 因为透明物体不写入深度缓存
             sortingSettings.criteria = SortingCriteria.CommonTransparent;   // 透明对象的典型排序，大体上从后往前
             drawingSettings.sortingSettings = sortingSettings;
             filteringSettings.renderQueueRange = RenderQueueRange.transparent;
