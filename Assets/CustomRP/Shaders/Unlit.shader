@@ -23,6 +23,7 @@ Shader "Custom RP/Unlit"
 			ZWrite [_ZWrite]
 			
 			HLSLPROGRAM
+			#pragma target 3.5
 			#pragma shader_feature _CLIPPING	// 根据是否应用透明度测试，生成变体
 			#pragma multi_compile_instancing	// 会生成两种变体: 支持 GPU Instance 和不支持 GPU Instance
 			#pragma vertex UnlitPassVertex
