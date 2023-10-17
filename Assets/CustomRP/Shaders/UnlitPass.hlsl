@@ -16,6 +16,7 @@ SAMPLER(sampler_BaseMap);       // 纹理采样器, 控制纹理的采样方式(
 UNITY_INSTANCING_BUFFER_START(UnityPerMaterial)
     UNITY_DEFINE_INSTANCED_PROP(float4, _BaseMap_ST)    // 纹理平铺和偏移可以针对每个实例进行设置
     UNITY_DEFINE_INSTANCED_PROP(float4, _BaseColor)
+    UNITY_DEFINE_INSTANCED_PROP(float, _Cutoff)
 UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
 
 struct Attributes
@@ -49,9 +50,13 @@ Varyings UnlitPassVertex(Attributes input)
 float4 UnlitPassFragment(Varyings input) : SV_TARGET
 {
     UNITY_SETUP_INSTANCE_ID(input);
-    float4 baseMapColor = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.baseUV);;
+    float4 baseMapColor = SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, input.baseUV);
     float4 baseColor = UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial, _BaseColor);
-    return baseMapColor * baseColor;
+    float4 base = baseMapColor * baseColor;
+    #if defined(_CLIPPING)
+        clip(base.a - UNITY_ACCESS_INSTANCED_PROP(UnityPerMaterial, _Cutoff));
+    #endif
+    return base;
 }
 
 #endif
