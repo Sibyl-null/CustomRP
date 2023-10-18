@@ -22,7 +22,7 @@ namespace CustomRP.Runtime
             name = BufferName
         };
 
-        private Shadows _shadows = new Shadows();
+        private readonly Shadows _shadows = new Shadows();
 
         public void Setup(ScriptableRenderContext context, CullingResults cullingResults, ShadowSettings shadowSettings)
         {
@@ -63,6 +63,7 @@ namespace CustomRP.Runtime
         {
             _dirLightColors[index] = visibleLight.finalColor;
             _dirLightDirections[index] = -visibleLight.localToWorldMatrix.GetColumn(2);
+            _shadows.ReserveDirectionalShadows(visibleLight.light, index);
         }
     }
 }
