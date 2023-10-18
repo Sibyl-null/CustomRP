@@ -22,7 +22,7 @@ namespace CustomRP.Runtime
             name = BufferName
         };
 
-        public void Setup(ScriptableRenderContext context, CullingResults cullingResults)
+        public void Setup(ScriptableRenderContext context, CullingResults cullingResults, ShadowSettings shadowSettings)
         {
             _cullingResults = cullingResults;
             

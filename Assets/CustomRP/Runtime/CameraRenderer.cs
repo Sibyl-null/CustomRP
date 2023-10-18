@@ -17,7 +17,8 @@ namespace CustomRP.Runtime
         // 某些任务(例如绘制天空盒)可以通过专用方法发出，但其他命令必须通过单独的命令缓冲区间接发出
         private readonly CommandBuffer _buffer = new CommandBuffer();
 
-        public void Render(ScriptableRenderContext context, Camera camera, bool useDynamicBatching, bool useGPUInstance)
+        public void Render(ScriptableRenderContext context, Camera camera, bool useDynamicBatching, 
+            bool useGPUInstance, ShadowSettings shadowSettings)
         {
             _context = context;
             _camera = camera;
@@ -25,22 +26,23 @@ namespace CustomRP.Runtime
             PrepareBuffer();
             PrepareForSceneWindow();    // 可能会向场景添加几何图形，需要在剔除之前完成
             
-            if (Cull() == false)
+            if (Cull(shadowSettings.maxDistance) == false)
                 return;
 
             Setup();
-            _lighting.Setup(context, _cullingResults);
+            _lighting.Setup(context, _cullingResults, shadowSettings);
             DrawVisibleGeometry(useDynamicBatching, useGPUInstance);
             DrawUnsupportedShaders();   // Only Editor
             DrawGizmos();               // Only Editor
             Submit();
         }
 
-        private bool Cull()
+        private bool Cull(float maxDistance)
         {
             // 尝试获取 ScriptableCullingParameters 相机剔除参数
             if (_camera.TryGetCullingParameters(out ScriptableCullingParameters p))
             {
+                p.shadowDistance = Mathf.Min(maxDistance, _camera.farClipPlane);
                 // 实际剔除调用
                 _cullingResults = _context.Cull(ref p);
                 return true;
