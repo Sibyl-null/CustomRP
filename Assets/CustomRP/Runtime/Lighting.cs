@@ -22,11 +22,14 @@ namespace CustomRP.Runtime
             name = BufferName
         };
 
+        private Shadows _shadows = new Shadows();
+
         public void Setup(ScriptableRenderContext context, CullingResults cullingResults, ShadowSettings shadowSettings)
         {
             _cullingResults = cullingResults;
             
             _buffer.BeginSample(BufferName);
+            _shadows.Setup(context, cullingResults, shadowSettings);
             SetupLight();
             _buffer.EndSample(BufferName);
             

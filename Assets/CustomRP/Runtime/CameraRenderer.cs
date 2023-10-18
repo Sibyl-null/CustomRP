@@ -42,6 +42,7 @@ namespace CustomRP.Runtime
             // 尝试获取 ScriptableCullingParameters 相机剔除参数
             if (_camera.TryGetCullingParameters(out ScriptableCullingParameters p))
             {
+                // 在摄像机视角中生成阴影的最大距离, 超过 shadowDistance 的物体不会在游戏中产生阴影
                 p.shadowDistance = Mathf.Min(maxDistance, _camera.farClipPlane);
                 // 实际剔除调用
                 _cullingResults = _context.Cull(ref p);
