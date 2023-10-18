@@ -9,11 +9,14 @@ namespace CustomRP.Runtime
 
         private bool _useDynamicBatching;
         private bool _useGPUInstance;
+        private ShadowSettings _shadowSettings;
 
-        public CustomRenderPipeline(bool useDynamicBatching, bool useGPUInstance, bool useSRPBatcher)
+        public CustomRenderPipeline(bool useDynamicBatching, bool useGPUInstance, bool useSRPBatcher, ShadowSettings shadowSettings)
         {
             _useDynamicBatching = useDynamicBatching;
             _useGPUInstance = useGPUInstance;
+            _shadowSettings = shadowSettings;
+            
             // 是否启用 SRP Batch
             GraphicsSettings.useScriptableRenderPipelineBatching = useSRPBatcher;
             GraphicsSettings.lightsUseLinearIntensity = true;
@@ -24,7 +27,7 @@ namespace CustomRP.Runtime
         {
             foreach (Camera camera in cameras)
             {
-                _cameraRenderer.Render(context, camera, _useDynamicBatching, _useGPUInstance);
+                _cameraRenderer.Render(context, camera, _useDynamicBatching, _useGPUInstance, _shadowSettings);
             }
         }
     }

@@ -22,11 +22,14 @@ namespace CustomRP.Runtime
             name = BufferName
         };
 
-        public void Setup(ScriptableRenderContext context, CullingResults cullingResults)
+        private readonly Shadows _shadows = new Shadows();
+
+        public void Setup(ScriptableRenderContext context, CullingResults cullingResults, ShadowSettings shadowSettings)
         {
             _cullingResults = cullingResults;
             
             _buffer.BeginSample(BufferName);
+            _shadows.Setup(context, cullingResults, shadowSettings);
             SetupLight();
             _buffer.EndSample(BufferName);
             
@@ -60,6 +63,7 @@ namespace CustomRP.Runtime
         {
             _dirLightColors[index] = visibleLight.finalColor;
             _dirLightDirections[index] = -visibleLight.localToWorldMatrix.GetColumn(2);
+            _shadows.ReserveDirectionalShadows(visibleLight.light, index);
         }
     }
 }
