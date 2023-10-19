@@ -12,6 +12,7 @@ namespace CustomRP.Runtime
     {
         private const string BufferName = "Shadows";
         private const int MaxShadowedDirectionalLightCount = 1;
+        private static int _dirShadowAtlasId = Shader.PropertyToID("_DirectionalShadowAtlas");
         
         private readonly CommandBuffer _buffer = new CommandBuffer 
         {
@@ -53,6 +54,36 @@ namespace CustomRP.Runtime
                 };
                 ++_shadowedDirectionalLightCount;
             }
+        }
+
+        public void Render()
+        {
+            if (_shadowedDirectionalLightCount > 0)
+            {
+                RenderDirectionalShadows();
+            }
+            else
+            {
+                // 不需要阴影时获取 1×1 虚拟纹理
+                _buffer.GetTemporaryRT(_dirShadowAtlasId, 1, 1, 32, FilterMode.Bilinear,
+                    RenderTextureFormat.Shadowmap);
+            }
+        }
+
+        private void RenderDirectionalShadows()
+        {
+            int atlasSize = (int)_shadowSettings.directional.atlasSize;
+            _buffer.GetTemporaryRT(_dirShadowAtlasId, atlasSize, atlasSize, 32, FilterMode.Bilinear,
+                RenderTextureFormat.Shadowmap);
+            _buffer.SetRenderTarget(_dirShadowAtlasId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
+            _buffer.ClearRenderTarget(true, false, Color.clear);
+            ExecuteBuffer();
+        }
+
+        public void Cleanup()
+        {
+            _buffer.ReleaseTemporaryRT(_dirShadowAtlasId);
+            ExecuteBuffer();
         }
     }
 }
