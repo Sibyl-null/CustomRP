@@ -11,7 +11,7 @@ namespace CustomRP.Runtime
     public class Shadows
     {
         private const string BufferName = "Shadows";
-        private const int MaxShadowedDirectionalLightCount = 1;
+        private const int MaxShadowedDirectionalLightCount = 4;
         private static int _dirShadowAtlasId = Shader.PropertyToID("_DirectionalShadowAtlas");
         
         private readonly CommandBuffer _buffer = new CommandBuffer 
@@ -81,14 +81,17 @@ namespace CustomRP.Runtime
             _buffer.BeginSample(BufferName);
             ExecuteBuffer();
 
+            int split = _shadowedDirectionalLightCount <= 1 ? 1 : 2;
+            int tileSize = atlasSize / split;
+            
             for (int i = 0; i < _shadowedDirectionalLightCount; ++i)
-                RenderDirectionalShadows(i, atlasSize);
+                RenderDirectionalShadows(i, split, tileSize);
             
             _buffer.EndSample(BufferName);
             ExecuteBuffer();
         }
 
-        private void RenderDirectionalShadows(int index, int tileSize)
+        private void RenderDirectionalShadows(int index, int split, int tileSize)
         {
             ShadowedDirectionalLight light = _shadowedDirectionalLights[index];
             ShadowDrawingSettings shadowDrawingSettings =
@@ -101,10 +104,17 @@ namespace CustomRP.Runtime
             );
 
             shadowDrawingSettings.splitData = splitData;
+            SetTileViewport(index, split, tileSize);
             _buffer.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
             
             ExecuteBuffer();
             _context.DrawShadows(ref shadowDrawingSettings);
+        }
+        
+        void SetTileViewport(int index, int split, float tileSize) 
+        {
+            Vector2 offset = new Vector2(index % split, index / split);
+            _buffer.SetViewport(new Rect(offset.x * tileSize, offset.y * tileSize, tileSize, tileSize));
         }
 
         public void Cleanup()
