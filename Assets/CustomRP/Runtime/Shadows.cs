@@ -77,7 +77,34 @@ namespace CustomRP.Runtime
                 RenderTextureFormat.Shadowmap);
             _buffer.SetRenderTarget(_dirShadowAtlasId, RenderBufferLoadAction.DontCare, RenderBufferStoreAction.Store);
             _buffer.ClearRenderTarget(true, false, Color.clear);
+            
+            _buffer.BeginSample(BufferName);
             ExecuteBuffer();
+
+            for (int i = 0; i < _shadowedDirectionalLightCount; ++i)
+                RenderDirectionalShadows(i, atlasSize);
+            
+            _buffer.EndSample(BufferName);
+            ExecuteBuffer();
+        }
+
+        private void RenderDirectionalShadows(int index, int tileSize)
+        {
+            ShadowedDirectionalLight light = _shadowedDirectionalLights[index];
+            ShadowDrawingSettings shadowDrawingSettings =
+                new ShadowDrawingSettings(_cullingResults, light.visibleLightIndex);
+            
+            _cullingResults.ComputeDirectionalShadowMatricesAndCullingPrimitives(
+                light.visibleLightIndex, 0, 1, Vector3.zero, tileSize, 0f,
+                out Matrix4x4 viewMatrix, out Matrix4x4 projectionMatrix,
+                out ShadowSplitData splitData
+            );
+
+            shadowDrawingSettings.splitData = splitData;
+            _buffer.SetViewProjectionMatrices(viewMatrix, projectionMatrix);
+            
+            ExecuteBuffer();
+            _context.DrawShadows(ref shadowDrawingSettings);
         }
 
         public void Cleanup()

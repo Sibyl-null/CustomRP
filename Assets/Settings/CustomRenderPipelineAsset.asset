@@ -15,3 +15,7 @@ MonoBehaviour:
   _useDynamicBatching: 0
   _useGPUInstance: 1
   _useSRPBatcher: 1
+  _shadowSettings:
+    maxDistance: 20
+    directional:
+      atlasSize: 1024
