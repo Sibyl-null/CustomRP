@@ -29,11 +29,16 @@ namespace CustomRP.Runtime
             if (Cull(shadowSettings.maxDistance) == false)
                 return;
 
-            Setup();
+            _buffer.BeginSample(SampleName);
+            ExecuteBuffer();
             _lighting.Setup(context, _cullingResults, shadowSettings);
+            _buffer.EndSample(SampleName);
+            
+            Setup();
             DrawVisibleGeometry(useDynamicBatching, useGPUInstance);
             DrawUnsupportedShaders();   // Only Editor
             DrawGizmos();               // Only Editor
+            _lighting.Cleanup();
             Submit();
         }
 
